@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.sistemafarmacia.Vista.navegacion.MenuPrincipal"
+      spacing="8" style="-fx-background-color: lightblue; -fx-padding: 10;">
+    <Button fx:id="btnPrincipal" text="Principal" prefWidth="120"/>
+    <Button fx:id="btnInventario" text="Inventario" prefWidth="120"/>
+    <Button fx:id="btnCategorias" text="Categorías" prefWidth="120"/>
+    <Button fx:id="btnReportes" text="Reportes" prefWidth="120"/>
+    <Button fx:id="btnSalir" text="Salir" prefWidth="120"/>
+</HBox>
