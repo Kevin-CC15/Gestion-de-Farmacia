@@ -36,7 +36,10 @@
 - Debe ser capaz de generar informes de ventas diarias, semanales, mensuales y anuales.  
 - Debe generar informes de inventario actualizado.  
 
----
+## 6. Categorias
+-Debe ser capaz de crear categorias.
+-Debe ser capaz de buscar las categorias.
+-debe ser capaz de modifica, eliminar, y cambiar categorias.
 
 ##  Requisitos No Funcionales
 
@@ -45,8 +48,21 @@
 - Se construirá utilizando **Java Swing** o **JavaFX**.  
 - Se diseñarán las pantallas y formularios para la gestión de productos, ventas, reportes y otras funcionalidades.  
 
+## Priorizacion de Requisitos Funcionales
+
+## 1. Categorias
+-Debe ser capaz de crear categorias.
+-Debe ser capaz de buscar las categorias.
+-debe ser capaz de modifica, eliminar, y cambiar categorias.
+
+### 2. Búsqueda y Consulta del Producto
+- Debe permitir la búsqueda rápida de productos por nombre, código o categoría.  
+- Debe proporcionar información detallada de cada producto, incluyendo precio, existencias y fecha de vencimiento.  
+
+### 3. Gestión de Clientes
+- Debe permitir la creación y mantenimiento de registros de clientes.  
+- Debe proporcionar información sobre las compras anteriores de los clientes.  
+- Debe permitir la asignación de descuentos o programas de fidelización a clientes habituales.  
+  - *Nota:* El cliente debe contar con un número de **“clienteamigo”** que le permita acceder al programa de descuentos.  
+
 ---
-
-
-
-
