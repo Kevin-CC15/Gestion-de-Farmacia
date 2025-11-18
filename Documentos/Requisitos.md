@@ -1,5 +1,5 @@
 # Sistema de Gestión de Farmacia
-
+# Cambiar esta cosa porfis 
 ## Requisitos Funcionales
 
 ### 1. Gestión de Inventario
