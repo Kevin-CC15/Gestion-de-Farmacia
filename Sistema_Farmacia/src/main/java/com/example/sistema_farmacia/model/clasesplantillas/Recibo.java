@@ -1,59 +1,33 @@
-package model.clasesplantillas;
+package com.example.sistema_farmacia.model.clasesplantillas;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 public class Recibo {
     private String idRecibo;
-    private LocalDate fecha;
-    private model.clasesplantillas.Venta venta; // Relación directa con la Venta que lo origina
+    private Venta venta;
     private double total;
-    private double descuento;
-    private double descuentoAplicado;
-    private ArrayList<model.clasesplantillas.Producto> productos;
+    private ArrayList<Producto> productos;
 
-    // Constructor Recibo(venta : Venta)
-    public Recibo(model.clasesplantillas.Venta venta) {
+    // Constructor
+    public Recibo(Venta venta) {
         this.venta = venta;
-        // Inicializa atributos usando datos de la Venta
         this.idRecibo = generarIdRecibo();
-        this.fecha = LocalDate.now(); // O usar venta.getFechaVenta() si Venta lo tiene
         this.total = venta.getTotal();
-        this.descuento = 0.0; // Se calcularía en un sistema real
-        this.descuentoAplicado = venta.aplicarDescuentoCliente(); // Reutiliza lógica de Venta
-        this.productos = venta.getVenta(); // Lista de productos de la venta
+        this.productos = venta.getVenta();
     }
 
-    // Métodos Principales (Lógica de Negocio)
-
-    public void listarProductos() {
-        System.out.println("Listado de productos para el recibo " + idRecibo);
-    }
-
-    public String generarContenido() {
-        return "Contenido detallado del recibo ID: " + idRecibo;
-    }
-
-    public String generarIdRecibo() {
+    // Lógica para generar ID del recibo
+    private String generarIdRecibo() {
         return "REC-" + System.currentTimeMillis();
     }
 
-    public boolean validar() {
-        return true;
+    public String generarContenido() {
+        // Lógica para formatear el contenido del recibo
+        return "Contenido del recibo: ID " + idRecibo;
     }
 
-    // Métodos Get (Accesores)
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public model.clasesplantillas.Venta getVenta() {
+    public Venta getVenta() {
         return venta;
     }
 }
