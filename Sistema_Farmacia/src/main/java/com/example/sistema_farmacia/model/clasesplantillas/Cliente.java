@@ -11,7 +11,7 @@ public class Cliente {
     private TipoCliente tipoCliente;
     private boolean esClienteAmigo;
     private double porcentajeDescuento;
-    private ArrayList<Venta> historialCompras;
+    private ArrayList<model.clasesplantillas.Venta> historialCompras;
 
     // Constructor Cliente(nom: String, dir: String, num: String, esCli: boolean)
     public Cliente(String nom, String dir, String num, boolean esCli) {
@@ -37,7 +37,7 @@ public class Cliente {
         this.tipoCliente = tipo;
     }
 
-    public void agregarCompra(Venta ventas) {
+    public void agregarCompra(model.clasesplantillas.Venta ventas) {
         this.historialCompras.add(ventas);
     }
 
@@ -89,7 +89,7 @@ public class Cliente {
         return porcentajeDescuento;
     }
 
-    public ArrayList<Venta> getHistorialCompras() {
+    public ArrayList<model.clasesplantillas.Venta> getHistorialCompras() {
         return historialCompras;
     }
 }

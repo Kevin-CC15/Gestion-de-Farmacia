@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Venta {
     private String idVenta;
     private LocalDate fechaVenta;
-    private Cliente cliente;
+    private model.clasesplantillas.Cliente cliente;
     private String descripcion;
     private double total;
     private boolean requiereReceta;
-    private ArrayList<Producto> venta; // Lista de productos vendidos
+    private ArrayList<model.clasesplantillas.Producto> venta; // Lista de productos vendidos
 
     // Constructor Ventas(cliente : Cliente)
-    public Venta(Cliente cliente) {
+    public Venta(model.clasesplantillas.Cliente cliente) {
         this.cliente = cliente;
         this.idVenta = generarIdVenta();
         this.fechaVenta = generarFecha();
@@ -35,13 +35,13 @@ public class Venta {
         return LocalDate.now();
     }
 
-    public void agregarProducto(Producto producto) {
+    public void agregarProducto(model.clasesplantillas.Producto producto) {
         this.venta.add(producto);
     }
 
     public double calcularTotal() {
         double subtotal = 0.0;
-        for (Producto p : venta) {
+        for (model.clasesplantillas.Producto p : venta) {
             subtotal += p.getPrecioVenta();
         }
         // Aplicar el descuento llamando a aplicarDescuentoCliente()
@@ -54,8 +54,8 @@ public class Venta {
         return this.total * (cliente.getPorcentajeDescuento() / 100.0);
     }
 
-    public Recibo generarRecibo() {
-        return new Recibo(this);
+    public model.clasesplantillas.Recibo generarRecibo() {
+        return new model.clasesplantillas.Recibo(this);
     }
 
     // Métodos Get (Accesores)
@@ -68,7 +68,7 @@ public class Venta {
         return fechaVenta;
     }
 
-    public Cliente getCliente() {
+    public model.clasesplantillas.Cliente getCliente() {
         return cliente;
     }
 
@@ -84,13 +84,13 @@ public class Venta {
         return requiereReceta;
     }
 
-    public ArrayList<Producto> getVenta() {
+    public ArrayList<model.clasesplantillas.Producto> getVenta() {
         return venta;
     }
 
     // Métodos Set (Mutadores)
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(model.clasesplantillas.Cliente cliente) {
         this.cliente = cliente;
     }
 

@@ -4,7 +4,7 @@ import model.clasesdata.VentasDB;
 import java.time.LocalDate;
 
 
-public class ReporteSemanal extends ReporteVentas {
+public class ReporteSemanal extends model.clasesreportes.ReporteVentas {
     // Atributo privado según el UML
     private LocalDate fechaInicio;
 

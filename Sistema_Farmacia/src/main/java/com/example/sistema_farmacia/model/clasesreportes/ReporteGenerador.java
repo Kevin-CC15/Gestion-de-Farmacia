@@ -15,23 +15,23 @@ public class ReporteGenerador {
     }
 
 
-    public ReporteDiario generarReporteVentasDiario(LocalDate fecha) {
-        return new ReporteDiario(ventasDB, fecha);
+    public model.clasesreportes.ReporteDiario generarReporteVentasDiario(LocalDate fecha) {
+        return new model.clasesreportes.ReporteDiario(ventasDB, fecha);
     }
 
-    public ReporteSemanal generarReporteVentasSemanal(LocalDate fechaInicio) {
-        return new ReporteSemanal(ventasDB, fechaInicio);
+    public model.clasesreportes.ReporteSemanal generarReporteVentasSemanal(LocalDate fechaInicio) {
+        return new model.clasesreportes.ReporteSemanal(ventasDB, fechaInicio);
     }
 
-    public ReporteMensual generarReporteVentasMensual(int anio, int mes) {
-        return new ReporteMensual(ventasDB, anio, mes);
+    public model.clasesreportes.ReporteMensual generarReporteVentasMensual(int anio, int mes) {
+        return new model.clasesreportes.ReporteMensual(ventasDB, anio, mes);
     }
 
-    public ReporteAnual generarReporteVentasAnual(int anio) {
-        return new ReporteAnual(ventasDB, anio);
+    public model.clasesreportes.ReporteAnual generarReporteVentasAnual(int anio) {
+        return new model.clasesreportes.ReporteAnual(ventasDB, anio);
     }
 
-    public ReporteInventario generarReporteInventario() {
-        return new ReporteInventario(productosDB);
+    public model.clasesreportes.ReporteInventario generarReporteInventario() {
+        return new model.clasesreportes.ReporteInventario(productosDB);
     }
 }

@@ -3,7 +3,7 @@ package model.clasesreportes;
 import model.clasesdata.VentasDB;
 import java.time.LocalDate;
 
-public class ReporteDiario extends ReporteVentas {
+public class ReporteDiario extends model.clasesreportes.ReporteVentas {
     private LocalDate fecha;
 
     public ReporteDiario(VentasDB ventasDB, LocalDate fecha) {

@@ -2,7 +2,7 @@ package model.clasesreportes;
 
 import model.clasesdata.VentasDB;
 
-public class ReporteMensual extends ReporteVentas {
+public class ReporteMensual extends model.clasesreportes.ReporteVentas {
     private int anio;
     private int mes;
 

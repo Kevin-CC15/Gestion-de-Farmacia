@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Recibo {
     private String idRecibo;
     private LocalDate fecha;
-    private Venta venta; // Relación directa con la Venta que lo origina
+    private model.clasesplantillas.Venta venta; // Relación directa con la Venta que lo origina
     private double total;
     private double descuento;
     private double descuentoAplicado;
-    private ArrayList<Producto> productos;
+    private ArrayList<model.clasesplantillas.Producto> productos;
 
     // Constructor Recibo(venta : Venta)
-    public Recibo(Venta venta) {
+    public Recibo(model.clasesplantillas.Venta venta) {
         this.venta = venta;
         // Inicializa atributos usando datos de la Venta
         this.idRecibo = generarIdRecibo();
@@ -53,7 +53,7 @@ public class Recibo {
         return total;
     }
 
-    public Venta getVenta() {
+    public model.clasesplantillas.Venta getVenta() {
         return venta;
     }
 }
