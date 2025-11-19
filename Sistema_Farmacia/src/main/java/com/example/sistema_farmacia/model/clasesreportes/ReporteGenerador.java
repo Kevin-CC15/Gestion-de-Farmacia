@@ -1,27 +1,37 @@
-package com.example.sistema_farmacia.model.clasesreportes;
+package model.clasesreportes;
 
-import com.example.sistema_farmacia.model.clasesdata.VentasDB;
-import com.example.sistema_farmacia.model.clasesdata.ProductosDB;
+import model.clasesdata.VentasDB;
+import model.clasesdata.ProductosDB;
 import java.time.LocalDate;
 
 public class ReporteGenerador {
     private VentasDB ventasDB;
     private ProductosDB productosDB;
 
-    // Constructor que recibe las bases de datos necesarias
+    // Constructor ReporteGenerador(ventas : VentasDB, productos : ProductosDB)
     public ReporteGenerador(VentasDB ventas, ProductosDB productos) {
         this.ventasDB = ventas;
         this.productosDB = productos;
     }
 
-    // Método para generar un reporte diario
+
     public ReporteDiario generarReporteVentasDiario(LocalDate fecha) {
         return new ReporteDiario(ventasDB, fecha);
     }
 
-    // Método para generar un reporte de inventario
+    public ReporteSemanal generarReporteVentasSemanal(LocalDate fechaInicio) {
+        return new ReporteSemanal(ventasDB, fechaInicio);
+    }
+
+    public ReporteMensual generarReporteVentasMensual(int anio, int mes) {
+        return new ReporteMensual(ventasDB, anio, mes);
+    }
+
+    public ReporteAnual generarReporteVentasAnual(int anio) {
+        return new ReporteAnual(ventasDB, anio);
+    }
+
     public ReporteInventario generarReporteInventario() {
-        // Asumiendo que existe una clase ReporteInventario que usa ProductosDB
         return new ReporteInventario(productosDB);
     }
 }

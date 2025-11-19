@@ -1,6 +1,6 @@
-package com.example.sistema_farmacia.model.clasesreportes;
-import com.example.sistema_farmacia.model.clasesdata.VentasDB;
+package model.clasesreportes;
 
+import model.clasesdata.VentasDB;
 import java.time.LocalDate;
 
 public class ReporteDiario extends ReporteVentas {
@@ -9,11 +9,24 @@ public class ReporteDiario extends ReporteVentas {
     public ReporteDiario(VentasDB ventasDB, LocalDate fecha) {
         super(ventasDB);
         this.fecha = fecha;
-        // Lógica de filtrado y cálculo para el día específico
     }
 
     @Override
     public String generarReporte() {
-        return "Reporte Diario para la fecha: " + fecha;
+        return "Reporte Diario de Ventas para la fecha: " + fecha.toString();
+    }
+
+    @Override
+    public double sacarTotalVenta() {
+        return super.sacarTotalVenta();
+    }
+
+    @Override
+    public double sacarTotalGanacia() {
+        return super.sacarTotalGanacia();
+    }
+
+    public void mostrarInfoVentas() {
+        // Implementación de la lógica de visualización
     }
 }
