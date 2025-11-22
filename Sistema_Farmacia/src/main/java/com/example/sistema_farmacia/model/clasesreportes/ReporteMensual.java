@@ -1,8 +1,8 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.VentasDB;
+import com.example.sistema_farmacia.model.clasesdata.VentasDB;
 
-public class ReporteMensual extends model.clasesreportes.ReporteVentas {
+public class ReporteMensual extends com.example.sistema_farmacia.model.clasesreportes.ReporteVentas {
     private int anio;
     private int mes;
 

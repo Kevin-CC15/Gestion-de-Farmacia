@@ -1,10 +1,11 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.VentasDB;
+
+import com.example.sistema_farmacia.model.clasesdata.VentasDB;
 import java.time.LocalDate;
 
 
-public class ReporteSemanal extends model.clasesreportes.ReporteVentas {
+public class ReporteSemanal extends com.example.sistema_farmacia.model.clasesreportes.ReporteVentas {
     // Atributo privado según el UML
     private LocalDate fechaInicio;
 

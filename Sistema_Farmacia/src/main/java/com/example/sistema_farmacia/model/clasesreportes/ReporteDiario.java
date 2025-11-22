@@ -1,9 +1,11 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.VentasDB;
+
+import com.example.sistema_farmacia.model.clasesdata.VentasDB;
+
 import java.time.LocalDate;
 
-public class ReporteDiario extends model.clasesreportes.ReporteVentas {
+public class ReporteDiario extends ReporteVentas {
     private LocalDate fecha;
 
     public ReporteDiario(VentasDB ventasDB, LocalDate fecha) {

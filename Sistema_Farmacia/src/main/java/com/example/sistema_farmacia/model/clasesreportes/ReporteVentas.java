@@ -1,7 +1,8 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.VentasDB;
-import model.clasesplantillas.Venta;
+import com.example.sistema_farmacia.model.clasesdata.VentasDB;
+import com.example.sistema_farmacia.model.clasesplantillas.Venta;
+
 import java.util.ArrayList;
 
 public class ReporteVentas {

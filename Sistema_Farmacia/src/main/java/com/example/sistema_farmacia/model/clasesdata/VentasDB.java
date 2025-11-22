@@ -1,6 +1,7 @@
-package model.clasesdata;
+package com.example.sistema_farmacia.model.clasesdata;
 
-import model.clasesplantillas.Recibo;
+
+import com.example.sistema_farmacia.model.clasesplantillas.Recibo;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class VentasDB {
 
     public void agregarVentas(Recibo recibo) {
         // Agrega el recibo a la lista usando su ID
-        listaVentas.put(recibo.generarIdRecibo(), recibo);
+        listaVentas.put("", recibo);
     }
 
     public void eliminarVentas(String id) {

@@ -1,7 +1,7 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.VentasDB;
-import model.clasesdata.ProductosDB;
+import com.example.sistema_farmacia.model.clasesdata.ProductosDB;
+import com.example.sistema_farmacia.model.clasesdata.VentasDB;
 import java.time.LocalDate;
 
 public class ReporteGenerador {
@@ -15,23 +15,23 @@ public class ReporteGenerador {
     }
 
 
-    public model.clasesreportes.ReporteDiario generarReporteVentasDiario(LocalDate fecha) {
-        return new model.clasesreportes.ReporteDiario(ventasDB, fecha);
+    public ReporteDiario generarReporteVentasDiario(LocalDate fecha) {
+        return new ReporteDiario(ventasDB, fecha);
     }
 
-    public model.clasesreportes.ReporteSemanal generarReporteVentasSemanal(LocalDate fechaInicio) {
-        return new model.clasesreportes.ReporteSemanal(ventasDB, fechaInicio);
+    public ReporteSemanal generarReporteVentasSemanal(LocalDate fechaInicio) {
+        return new ReporteSemanal(ventasDB, fechaInicio);
     }
 
-    public model.clasesreportes.ReporteMensual generarReporteVentasMensual(int anio, int mes) {
-        return new model.clasesreportes.ReporteMensual(ventasDB, anio, mes);
+    public ReporteMensual generarReporteVentasMensual(int anio, int mes) {
+        return new ReporteMensual(ventasDB, anio, mes);
     }
 
-    public model.clasesreportes.ReporteAnual generarReporteVentasAnual(int anio) {
-        return new model.clasesreportes.ReporteAnual(ventasDB, anio);
+    public ReporteAnual generarReporteVentasAnual(int anio) {
+        return new ReporteAnual(ventasDB, anio);
     }
 
-    public model.clasesreportes.ReporteInventario generarReporteInventario() {
-        return new model.clasesreportes.ReporteInventario(productosDB);
+    public ReporteInventario generarReporteInventario() {
+        return new ReporteInventario(productosDB);
     }
 }

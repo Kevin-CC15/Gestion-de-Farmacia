@@ -1,4 +1,4 @@
-package model.clasesplantillas;
+package com.example.sistema_farmacia.model.clasesplantillas;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class Cliente {
     private TipoCliente tipoCliente;
     private boolean esClienteAmigo;
     private double porcentajeDescuento;
-    private ArrayList<model.clasesplantillas.Venta> historialCompras;
+    private ArrayList<Venta> historialCompras;
 
     // Constructor Cliente(nom: String, dir: String, num: String, esCli: boolean)
     public Cliente(String nom, String dir, String num, boolean esCli) {
@@ -37,7 +37,7 @@ public class Cliente {
         this.tipoCliente = tipo;
     }
 
-    public void agregarCompra(model.clasesplantillas.Venta ventas) {
+    public void agregarCompra(Venta ventas) {
         this.historialCompras.add(ventas);
     }
 
@@ -89,7 +89,7 @@ public class Cliente {
         return porcentajeDescuento;
     }
 
-    public ArrayList<model.clasesplantillas.Venta> getHistorialCompras() {
+    public ArrayList<Venta> getHistorialCompras() {
         return historialCompras;
     }
 }
