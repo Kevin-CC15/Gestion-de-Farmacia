@@ -2,8 +2,9 @@ package com.example.sistema_farmacia.model.clasesreportes;
 
 import com.example.sistema_farmacia.model.clasesdata.VentasDB;
 import com.example.sistema_farmacia.model.clasesplantillas.Venta;
-
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 public class ReporteVentas {
     private VentasDB ventasDB;
@@ -20,6 +21,7 @@ public class ReporteVentas {
         this.gananciaTotal = 0.0;
     }
 
+    // --- Métodos de la clase ---
 
     public String generarReporte() {
         return "Reporte base de ventas.";
@@ -39,8 +41,10 @@ public class ReporteVentas {
         // Mostrará la información de las ventas realizadas, como una lista
     }
 
+
     public ArrayList<Venta> sacarArrayListVentas() {
-        // Encargado de transformar el Map<> en un ArrayList<>
-        return ventas;
+        Map<String, Venta> mapaVentas = this.ventasDB.getListaVentas();
+        Collection<Venta> valores = mapaVentas.values();
+        return new ArrayList<>(valores);
     }
 }
