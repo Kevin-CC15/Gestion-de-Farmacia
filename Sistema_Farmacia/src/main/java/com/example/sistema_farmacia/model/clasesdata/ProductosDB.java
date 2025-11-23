@@ -1,6 +1,7 @@
-package model.clasesdata;
+package com.example.sistema_farmacia.model.clasesdata;
 
-import model.clasesplantillas.Producto;
+
+import com.example.sistema_farmacia.model.clasesplantillas.Producto;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ public class ProductosDB {
     // Métodos Principales
 
     public void agregarProducto(Producto producto) {
+        //agrega el producto al Map
+        listaProductos.put(producto.getCodigo(), producto);
     }
 
     public void eliminarProducto(String codigo) {
@@ -26,7 +29,7 @@ public class ProductosDB {
     public void modificarProducto(String codigoViejo, Producto producto) {
         // Elimina el producto anterior y agrega el objeto Producto modificado
         listaProductos.remove(codigoViejo);
-        // listaProductos.put(producto.getCodigo(), producto);
+        listaProductos.put(producto.getCodigo(), producto);
     }
 
     public Map<String, Producto> getListaProductos() {

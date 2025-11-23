@@ -1,6 +1,7 @@
-package model.clasesdata;
+package com.example.sistema_farmacia.model.clasesdata;
 
-import model.clasesplantillas.Categoria;
+import com.example.sistema_farmacia.model.clasesplantillas.Categoria;
+
 import java.util.HashMap;
 import java.util.Map;
 

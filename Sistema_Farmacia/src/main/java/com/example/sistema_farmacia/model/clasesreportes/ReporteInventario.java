@@ -1,7 +1,8 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.ProductosDB;
-import model.clasesplantillas.Producto;
+
+import com.example.sistema_farmacia.model.clasesdata.ProductosDB;
+import com.example.sistema_farmacia.model.clasesplantillas.Producto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package model.clasesplantillas;
+package com.example.sistema_farmacia.model.clasesplantillas;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,19 +7,20 @@ import java.util.ArrayList;
 public class Venta {
     private String idVenta;
     private LocalDate fechaVenta;
-    private model.clasesplantillas.Cliente cliente;
+    private Cliente cliente;
     private String descripcion;
     private double total;
     private boolean requiereReceta;
-    private ArrayList<model.clasesplantillas.Producto> venta; // Lista de productos vendidos
+    private Recibo recibo;
+    private ArrayList<Producto> venta; // Lista de productos vendidos
 
     // Constructor Ventas(cliente : Cliente)
-    public Venta(model.clasesplantillas.Cliente cliente) {
+    public Venta(Cliente cliente) {
         this.cliente = cliente;
         this.idVenta = generarIdVenta();
         this.fechaVenta = generarFecha();
         this.venta = new ArrayList<>();
-        this.total = 0.0;
+        this.total = calcularTotal();
         this.requiereReceta = false; // Valor inicial
     }
 
@@ -35,18 +36,24 @@ public class Venta {
         return LocalDate.now();
     }
 
-    public void agregarProducto(model.clasesplantillas.Producto producto) {
+    public void agregarProducto(Producto producto) {
         this.venta.add(producto);
     }
 
     public double calcularTotal() {
         double subtotal = 0.0;
-        for (model.clasesplantillas.Producto p : venta) {
+        for (Producto p : venta) {
             subtotal += p.getPrecioVenta();
         }
-        // Aplicar el descuento llamando a aplicarDescuentoCliente()
+
+        // actualizamos el total con la suma de los productos
+        this.total = subtotal;
+
+        //calculamos el descuento (que usará el valor que acabamos de asignar)
         double descuento = aplicarDescuentoCliente();
+
         this.total = subtotal - descuento;
+
         return this.total;
     }
 
@@ -54,8 +61,8 @@ public class Venta {
         return this.total * (cliente.getPorcentajeDescuento() / 100.0);
     }
 
-    public model.clasesplantillas.Recibo generarRecibo() {
-        return new model.clasesplantillas.Recibo(this);
+    public void generarRecibo() {
+        this.recibo = new Recibo(this);
     }
 
     // Métodos Get (Accesores)
@@ -68,7 +75,7 @@ public class Venta {
         return fechaVenta;
     }
 
-    public model.clasesplantillas.Cliente getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
@@ -84,13 +91,17 @@ public class Venta {
         return requiereReceta;
     }
 
-    public ArrayList<model.clasesplantillas.Producto> getVenta() {
+    public ArrayList<Producto> getVenta() {
         return venta;
+    }
+
+    public Recibo getRecibo() {
+        return recibo;
     }
 
     // Métodos Set (Mutadores)
 
-    public void setCliente(model.clasesplantillas.Cliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
