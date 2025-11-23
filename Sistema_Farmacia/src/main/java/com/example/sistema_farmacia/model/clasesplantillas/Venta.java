@@ -11,6 +11,7 @@ public class Venta {
     private String descripcion;
     private double total;
     private boolean requiereReceta;
+    private Recibo recibo;
     private ArrayList<Producto> venta; // Lista de productos vendidos
 
     // Constructor Ventas(cliente : Cliente)
@@ -19,7 +20,7 @@ public class Venta {
         this.idVenta = generarIdVenta();
         this.fechaVenta = generarFecha();
         this.venta = new ArrayList<>();
-        this.total = 0.0;
+        this.total = calcularTotal();
         this.requiereReceta = false; // Valor inicial
     }
 
@@ -44,9 +45,15 @@ public class Venta {
         for (Producto p : venta) {
             subtotal += p.getPrecioVenta();
         }
-        // Aplicar el descuento llamando a aplicarDescuentoCliente()
+
+        // actualizamos el total con la suma de los productos
+        this.total = subtotal;
+
+        //calculamos el descuento (que usará el valor que acabamos de asignar)
         double descuento = aplicarDescuentoCliente();
+
         this.total = subtotal - descuento;
+
         return this.total;
     }
 
@@ -54,8 +61,8 @@ public class Venta {
         return this.total * (cliente.getPorcentajeDescuento() / 100.0);
     }
 
-    public Recibo generarRecibo() {
-        return new Recibo(this);
+    public void generarRecibo() {
+        this.recibo = new Recibo(this);
     }
 
     // Métodos Get (Accesores)
@@ -86,6 +93,10 @@ public class Venta {
 
     public ArrayList<Producto> getVenta() {
         return venta;
+    }
+
+    public Recibo getRecibo() {
+        return recibo;
     }
 
     // Métodos Set (Mutadores)
