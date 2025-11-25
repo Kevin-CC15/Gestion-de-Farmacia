@@ -37,6 +37,7 @@ public class PantallaVentasController extends ControladorBase {
     public void setCategoriasDB(CategoriasDB categoriasDB) { this.categoriasDB = categoriasDB; }
 
     @FXML
+
     public void initialize() {
         colId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProducto().getCodigo()));
         colNombre.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProducto().getNombre()));
@@ -68,28 +69,27 @@ public class PantallaVentasController extends ControladorBase {
 
         btnAgregarProducto.setOnAction(e -> buscarYAgregar());
         btnVender.setOnAction(e -> iniciarVenta());
-        btnHistorial.setOnAction(e -> abrirHistorial());
-        recalcularTotal();
+        recalcularTotal();  // <-- IMPORTANTE: No pongas btnHistorial.setOnAction...
     }
 
+
     // --- AGREGAR AL CARRITO ---
-    /**
-     * Busca y agrega un producto al carrito validando su existencia y stock
-     */
+    //Busca y agrega un producto al carrito validando su existencia y cantidad
+
     private void buscarYAgregar() {
         try {
-            // 1. Validar código
+            // Validar código
             String codigo = txtCodigoBuscar.getText().trim();
             Verificador.verificarNoVacio(codigo, "código del producto");
 
-            // 2. Buscar producto
+            // Buscar producto
             Producto producto = productosDB.getListaProductos().get(codigo);
             Verificador.verificarExiste(producto, "Producto", codigo);
 
-            // 3. Verificar stock disponible
+            // Verificar stock disponible
             Verificador.verificarStockDisponible(producto);
 
-            // 4. Verificar si ya está en el carrito
+            // Verificar si ya está en el carrito
             for (ProductoEnVenta pe : carrito) {
                 if (pe.getProducto().getCodigo().equalsIgnoreCase(codigo)) {
                     // Ya existe, intentar sumar
@@ -105,7 +105,7 @@ public class PantallaVentasController extends ControladorBase {
                 }
             }
 
-            // 5. Agregar nuevo al carrito
+            // Agregar nuevo al carrito
             carrito.add(new ProductoEnVenta(producto, 1));
             recalcularTotal();
             mostrarMensaje("Producto agregado al carrito");
@@ -190,7 +190,7 @@ public class PantallaVentasController extends ControladorBase {
 
             ventasDB.agregarVentas(nuevaVenta);
 
-            // Actualizar stock
+            // Actualizar cantidad
             for (ProductoEnVenta pe : carrito) {
                 pe.getProducto().setUnidadesExi(pe.getProducto().getUnidadesExi() - pe.getCantidad());
             }
@@ -288,7 +288,7 @@ public class PantallaVentasController extends ControladorBase {
         return dialogo;
     }
 
-    // --- Ventana final (emergente) estilo ticket ---
+    // --- Ventana final (la cual es emergente) estilo ticket ---
     private void mostrarResumenVenta(Venta venta, Recibo recibo, double descuentoAplicado, double totalFinal, double totalSinDescuento) {
         Dialog<Void> dialogo = new Dialog<>();
         dialogo.setTitle("Resumen y recibo");
@@ -348,7 +348,7 @@ public class PantallaVentasController extends ControladorBase {
         mostrarMensaje("¡Aquí abrirás el historial de ventas!");
     }
 
-    // ---- Clase aux para el carrito ----
+    // ---- Clase auxiliar para el carrito ----
     public static class ProductoEnVenta {
         private final Producto producto;
         private int cantidad;
@@ -364,9 +364,9 @@ public class PantallaVentasController extends ControladorBase {
     }
 
     // --- Diálogo para agregar cliente NUEVO desde ventas ---
-    /**
-     * Muestra diálogo para agregar un cliente nuevo validando todos los campos
-     */
+
+     //Muestra diálogo para agregar un cliente nuevo validando todos los campos
+
     private Cliente mostrarDialogoAgregarCliente() {
         Dialog<Cliente> dialogo = new Dialog<>();
         dialogo.setTitle("Nuevo Cliente");

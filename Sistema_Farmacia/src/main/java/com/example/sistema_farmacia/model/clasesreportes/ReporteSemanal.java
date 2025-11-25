@@ -1,36 +1,38 @@
 package com.example.sistema_farmacia.model.clasesreportes;
 
-
 import com.example.sistema_farmacia.model.clasesdata.VentasDB;
+import com.example.sistema_farmacia.model.clasesplantillas.Venta;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 
+public class ReporteSemanal extends ReporteVentas {
+    private final LocalDate fechaInicio;
 
-public class ReporteSemanal extends com.example.sistema_farmacia.model.clasesreportes.ReporteVentas {
-    // Atributo privado según el UML
-    private LocalDate fechaInicio;
-
-    // Constructor ReporteSemanal(ventasDB : VentasDB, ffecha : LocalDate)
-    public ReporteSemanal(VentasDB ventasDB, LocalDate ffecha) {
+    public ReporteSemanal(VentasDB ventasDB, LocalDate fechaInicio) {
         super(ventasDB);
-        this.fechaInicio = ffecha;
+        this.fechaInicio = fechaInicio;
     }
 
+
     @Override
-    public String generarReporte() {
-        return "Reporte Semanal de Ventas iniciando el: " + fechaInicio.toString();
+    public ArrayList<Venta> sacarArrayListVentas() {
+        ArrayList<Venta> todas = super.sacarArrayListVentas();
+        ArrayList<Venta> filtradas = new ArrayList<>();
+        LocalDate fin = fechaInicio.plusDays(6);
+        for (Venta v : todas) {
+            if (!v.getFechaVenta().isBefore(fechaInicio) && !v.getFechaVenta().isAfter(fin)) filtradas.add(v);
+        }
+        return filtradas;
     }
 
     @Override
     public double sacarTotalVenta() {
-        return super.sacarTotalVenta();
+        return sacarArrayListVentas().stream().mapToDouble(Venta::getTotal).sum();
     }
 
     @Override
     public double sacarTotalGanacia() {
-        return super.sacarTotalGanacia();
-    }
-
-    public void mostrarInfoVentas() {
-        // Muestra la lista de ventas realizadas en la semana.
+        return sacarArrayListVentas().stream().mapToDouble(Venta::getTotal).sum();
     }
 }

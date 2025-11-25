@@ -8,11 +8,12 @@ public class ReporteGenerador {
     private VentasDB ventasDB;
     private ProductosDB productosDB;
 
-    // Constructor ReporteGenerador(ventas : VentasDB, productos : ProductosDB)
+    // Constructor ReporteGenerador(ventas: VentasDB, productos : ProductosDB)
     public ReporteGenerador(VentasDB ventas, ProductosDB productos) {
         this.ventasDB = ventas;
         this.productosDB = productos;
     }
+
 
 
     public ReporteDiario generarReporteVentasDiario(LocalDate fecha) {

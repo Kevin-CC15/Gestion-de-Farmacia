@@ -1,11 +1,14 @@
 package com.example.sistema_farmacia.model.clasesreportes;
 
 import com.example.sistema_farmacia.model.clasesdata.VentasDB;
+import com.example.sistema_farmacia.model.clasesplantillas.Producto;
+import com.example.sistema_farmacia.model.clasesplantillas.Venta;
 
-public class ReporteAnual extends com.example.sistema_farmacia.model.clasesreportes.ReporteVentas {
-    private int anio;
+import java.util.ArrayList;
 
-    // Constructor ReporteAnual(ventasDB : VentasDB, anio : int)
+public class ReporteAnual extends ReporteVentas {
+    private final int anio;
+
     public ReporteAnual(VentasDB ventasDB, int anio) {
         super(ventasDB);
         this.anio = anio;
@@ -13,22 +16,46 @@ public class ReporteAnual extends com.example.sistema_farmacia.model.clasesrepor
 
     @Override
     public String generarReporte() {
-        return "Reporte Anual de Ventas: Año " + anio;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ventas del día ").append(anio).append(":\n\n");
+        sb.append(String.format("%-10s %-20s %-10s %-10s\n", "ID", "Cliente", "Total", "Fecha"));
+        sb.append("---------------------------------------------------------\n");
+
+        int num = 1;
+        for (Venta v : sacarArrayListVentas()) {
+            sb.append(String.format("%-10s %-20s $%-9.2f %s\n",
+                    v.getIdVenta(),
+                    v.getCliente().getNombre(),
+                    v.getTotal(),
+                    v.getFechaVenta().toString()
+            ));
+            // Si quieres productos especificos debajo:
+            for (Producto p : v.getVenta()) {
+                sb.append(String.format("    - %s | Cant: %d | $%.2f\n",
+                        p.getNombre(), 1, p.getPrecioVenta())); // Asume 1 por producto, ajusta si tu modelo guarda cantidades
+            }
+        }
+        if (num == 1) sb.append("No se realizaron ventas en esta fecha.\n");
+        return sb.toString();
+    }
+
+    @Override
+    public ArrayList<Venta> sacarArrayListVentas() {
+        ArrayList<Venta> todas = super.sacarArrayListVentas();
+        ArrayList<Venta> filtradas = new ArrayList<>();
+        for (Venta v : todas) {
+            if (v.getFechaVenta().getYear() == anio) filtradas.add(v);
+        }
+        return filtradas;
     }
 
     @Override
     public double sacarTotalVenta() {
-        // Lógica para filtrar ventas por 'anio' y sumar el total
-        return super.sacarTotalVenta();
+        return sacarArrayListVentas().stream().mapToDouble(Venta::getTotal).sum();
     }
 
     @Override
     public double sacarTotalGanacia() {
-        // Lógica para calcular la ganancia total del año
-        return super.sacarTotalGanacia();
-    }
-
-    public void mostrarInfoVentas() {
-        // Muestra la información de las ventas realizadas en el año
+        return sacarArrayListVentas().stream().mapToDouble(Venta::getTotal).sum();
     }
 }

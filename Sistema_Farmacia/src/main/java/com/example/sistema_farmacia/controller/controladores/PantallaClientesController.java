@@ -64,7 +64,7 @@ public class PantallaClientesController extends ControladorBase {
      */
     private void agregarCliente() {
         try {
-            // 1. Obtener datos del formulario
+            //  Obtener datos del formulario
             String nombre = txtNombre.getText().trim();
             String direccion = txtDireccion.getText().trim();
             String contacto = txtNumeroContacto.getText().trim();
@@ -72,7 +72,7 @@ public class PantallaClientesController extends ControladorBase {
             TipoCliente tipo = cmbTipoCliente.getValue();
             String descuentoTexto = txtDescuento.getText().trim();
 
-            // 2. Validar campos obligatorios
+            // Validar campos obligatorios
             Verificador.verificarNoVacio(nombre, "nombre");
             Verificador.verificarNoVacio(direccion, "dirección");
             Verificador.verificarNoVacio(contacto, "número de contacto");
@@ -81,7 +81,7 @@ public class PantallaClientesController extends ControladorBase {
                 throw new CampoVacioException("Debes seleccionar un tipo de cliente");
             }
 
-            // 3. Validar descuento (si se ingresó)
+            // Validar descuento (si se ingresó)
             double descuento = 0;
             if (!descuentoTexto.isEmpty()) {
                 Verificador.verificarNumerico(descuentoTexto, "descuento");
@@ -90,12 +90,12 @@ public class PantallaClientesController extends ControladorBase {
                 Verificador.verificarRango(descuento, 0, 100, "descuento");
             }
 
-            // 4. Verificar duplicado por número de contacto
+            // Verificar duplicado por número de contacto
             boolean existeContacto = clientesDB.getListaClientes().values().stream()
                     .anyMatch(c -> c.getNumeroContacto().equals(contacto));
             Verificador.verificarDuplicado(existeContacto, "número de contacto", contacto);
 
-            // 5. Crear y agregar cliente
+            // Crear y agregar cliente
             Cliente nuevo = new Cliente(nombre, direccion, contacto, esAmigo);
             nuevo.setTipoCliente(tipo);
             nuevo.setPorcentajeDescuento(descuento);
@@ -110,9 +110,8 @@ public class PantallaClientesController extends ControladorBase {
         }
     }
 
-    /**
-     * Limpia todos los campos del formulario
-     */
+
+     //Limpia todos los campos del formulario
     private void limpiarFormulario() {
         txtNombre.clear();
         txtDireccion.clear();
@@ -236,9 +235,9 @@ public class PantallaClientesController extends ControladorBase {
         });
     }
 
-    /**
-     * Modifica un cliente validando los nuevos datos
-     */
+
+     //Modifica un cliente validando los nuevos datos
+
     private void modificarCliente(Cliente cliente, String nuevoNombre, String nuevaDireccion,
                                   String nuevoContacto, TipoCliente nuevoTipo,
                                   boolean esAmigo, String nuevoDescuentoTexto) {
@@ -322,9 +321,8 @@ public class PantallaClientesController extends ControladorBase {
         }
     }
 
-    /**
-     * Elimina un cliente
-     */
+     //Elimina un cliente
+
     private void eliminarCliente(Cliente cliente) {
         try {
             clientesDB.eliminarCliente(cliente.getNombre());

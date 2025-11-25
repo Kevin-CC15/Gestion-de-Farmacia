@@ -2,24 +2,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="18"
-      alignment="TOP_LEFT"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.sistema_farmacia.controller.controladores.PantallaProductosController"
-      stylesheets="@../estilos/EstilosProductos.css"
-      VBox.vgrow="ALWAYS"
-      style="-fx-padding: 55 0 0 350;">
-    <HBox spacing="14" alignment="CENTER_LEFT">
-        <Button fx:id="btnAgregar" text="Agregar" />
-        <Button fx:id="btnListar" text="Listar" />
-    </HBox>
-    <VBox fx:id="areaSubpagina"
-          styleClass="area-subpagina"
-          alignment="CENTER_LEFT"
-          VBox.vgrow="ALWAYS"
-          prefWidth="800"
-          prefHeight="600">
-        <!-- Aquí el controlador pondrá dinámicamente el formulario con checkboxes o la tabla/listado -->
-    </VBox>
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.sistema_farmacia.controller.controladores.PantallaProductosController"
+            stylesheets="@../estilos/EstilosProductos.css">
+
+    <!-- Barra superior con acciones -->
+    <top>
+        <HBox spacing="14" alignment="CENTER_LEFT" style="-fx-padding: 25 0 11 350;">
+            <Button fx:id="btnAgregar" text="Agregar" />
+            <Button fx:id="btnListar" text="Listar" />
+        </HBox>
+    </top>
+
+    <!-- Área central para el contenido dinámico: tabla/listado/formulario de productos -->
+    <center>
+        <VBox fx:id="areaSubpagina"
+              styleClass="area-subpagina"
+              alignment="CENTER_LEFT"
+              VBox.vgrow="ALWAYS"
+              prefWidth="800"
+              prefHeight="600"
+              style="-fx-padding: 30;">
+            <!-- Aquí el controlador insertará el formulario o la tabla -->
+        </VBox>
+    </center>
+</BorderPane>

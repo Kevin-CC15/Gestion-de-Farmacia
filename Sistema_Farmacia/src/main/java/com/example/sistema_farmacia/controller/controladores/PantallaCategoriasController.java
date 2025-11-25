@@ -46,27 +46,26 @@ public class PantallaCategoriasController extends ControladorBase {
         areaSubpagina.getChildren().add(formularioAgregar);
     }
 
-    /**
-     * Agrega una nueva categoría validando los datos con el Verificador
-     */
+
+     //Agrega una nueva categoría validando los datos con el Verificador
     private void agregarCategoria() {
         try {
-            // 1. Obtener datos del formulario
+            // Obtener datos del formulario
             String nombre = txtNombre.getText().trim();
             String descripcion = txtDescripcion.getText().trim();
 
-            // 2. Validar usando el Verificador
+            // Validar usando el Verificador
             Verificador.verificarNoVacio(nombre, "nombre de la categoría");
 
-            // 3. Verificar que no exista duplicado
+            // Verificar que no exista duplicado
             boolean existe = categoriasDB.getListaCategorias().containsKey(nombre);
             Verificador.verificarDuplicado(existe, "categoría", nombre);
 
-            // 4. Si todo está bien, crear y agregar
+            // Si todo está bien, crear y agregar
             Categoria nueva = new Categoria(nombre, descripcion);
             categoriasDB.agregarCategoria(nueva);
 
-            // 5. Mostrar mensaje de éxito y limpiar
+            //  Mostrar mensaje de éxito y limpiar
             mostrarExito("Categoría agregada exitosamente:\n" + nombre);
             limpiarFormulario();
 
@@ -76,9 +75,9 @@ public class PantallaCategoriasController extends ControladorBase {
         }
     }
 
-    /**
-     * Limpia los campos del formulario
-     */
+
+     //Limpia los campos del formulario
+
     private void limpiarFormulario() {
         txtNombre.clear();
         txtDescripcion.clear();
@@ -133,9 +132,8 @@ public class PantallaCategoriasController extends ControladorBase {
         areaSubpagina.getChildren().add(listado);
     }
 
-    /**
-     * Filtra las categorías según el texto de búsqueda
-     */
+
+     //Filtra las categorías según el texto de búsqueda
     private void filtrarCategorias(String textoBusqueda, TableView<Categoria> tabla) {
         String filtro = textoBusqueda.trim().toLowerCase();
 
@@ -181,9 +179,9 @@ public class PantallaCategoriasController extends ControladorBase {
         });
     }
 
-    /**
-     * Modifica una categoría validando los datos
-     */
+
+     //Modifica una categoría validando los datos
+
     private void modificarCategoria(Categoria categoria, String nuevoNombre, String nuevaDescripcion) {
         try {
             // Validar nuevo nombre

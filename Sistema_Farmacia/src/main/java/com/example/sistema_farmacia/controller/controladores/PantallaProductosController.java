@@ -97,12 +97,12 @@ public class PantallaProductosController extends ControladorBase {
         }
     }
 
-    /**
-     * Agrega el producto validando todos los campos
-     */
+
+     //Agrega el producto validando todos los campos
+
     private void agregarProductoCheck() {
         try {
-            // 1. Obtener datos
+            // Obtener datos
             String nombre = txtNombre.getText().trim();
             String descripcion = txtDescripcion.getText().trim();
             String codigo = txtCodigo.getText().trim();
@@ -111,7 +111,7 @@ public class PantallaProductosController extends ControladorBase {
             String precioVentaTexto = txtPrecioVenta.getText().trim();
             String unidadesTexto = txtUnidades.getText().trim();
 
-            // 2. Validaciones básicas
+            // Validaciones básicas
             Verificador.verificarNoVacio(nombre, "nombre");
             Verificador.verificarNoVacio(descripcion, "descripción");
             Verificador.verificarNoVacio(codigo, "código");
@@ -124,7 +124,7 @@ public class PantallaProductosController extends ControladorBase {
             Verificador.verificarNoVacio(precioVentaTexto, "precio venta especial");
             Verificador.verificarNoVacio(unidadesTexto, "unidades disponibles");
 
-            // 3. Validar tipos numéricos
+            // Validar tipos numéricos
             Verificador.verificarNumerico(precioTexto, "precio normal");
             Verificador.verificarNumerico(precioVentaTexto, "precio venta especial");
             Verificador.verificarEntero(unidadesTexto, "unidades disponibles");
@@ -133,19 +133,19 @@ public class PantallaProductosController extends ControladorBase {
             double precioVenta = Double.parseDouble(precioVentaTexto);
             int unidades = Integer.parseInt(unidadesTexto);
 
-            // 4. Validar valores positivos
+            // Validar valores positivos
             Verificador.verificarPositivo(precio, "precio normal");
             Verificador.verificarPositivo(precioVenta, "precio venta especial");
             Verificador.verificarPositivo(unidades, "unidades disponibles");
 
-            // 5. Validar fecha de caducidad
+            // Validar fecha de caducidad
             Verificador.verificarFechaCaducidad(caducidad);
 
-            // 6. Verificar duplicado de código
+            // Verificar duplicado de código
             boolean existe = productosDB.getListaProductos().containsKey(codigo);
             Verificador.verificarDuplicado(existe, "código de producto", codigo);
 
-            // 7. Obtener categorías seleccionadas
+            // Obtener categorías seleccionadas
             ArrayList<Categoria> categoriasProducto = new ArrayList<>();
             for (javafx.scene.Node nodo : boxCheckCategorias.getChildren()) {
                 if (nodo instanceof CheckBox cb && cb.isSelected()) {
@@ -156,7 +156,7 @@ public class PantallaProductosController extends ControladorBase {
                 categoriasProducto.add(categoriasDB.getCategoriaDefault());
             }
 
-            // 8. Crear y agregar producto
+            // Crear y agregar producto
             Producto nuevo = new Producto(nombre, descripcion, caducidad, precio, precioVenta, unidades, codigo);
             nuevo.setCategoria(categoriasProducto);
             productosDB.agregarProducto(nuevo);
@@ -308,9 +308,8 @@ public class PantallaProductosController extends ControladorBase {
         });
     }
 
-    /**
-     * Modifica un producto validando los nuevos datos
-     */
+
+     //Modifica un producto validando los nuevos datos
     private void modificarProducto(Producto producto, String nuevoNombre, String nuevaDescripcion,
                                    String nuevoCodigo, String nuevoPrecio, String nuevoPrecioVenta,
                                    String nuevasUnidades, LocalDate nuevaCaducidad) {
@@ -406,9 +405,8 @@ public class PantallaProductosController extends ControladorBase {
         }
     }
 
-    /**
-     * Elimina un producto
-     */
+
+     //Elimina un producto
     private void eliminarProducto(Producto producto) {
         try {
             productosDB.eliminarProducto(producto.getCodigo());

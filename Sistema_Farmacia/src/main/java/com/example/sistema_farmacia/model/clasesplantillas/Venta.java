@@ -60,16 +60,63 @@ public class Venta {
         this.total = getTotal();
     }
 
-    // --- Métodos accesorios y mutadores ---
-    public String getIdVenta() { return idVenta; }
-    public LocalDate getFechaVenta() { return fechaVenta; }
-    public boolean isRequiereReceta() { return requiereReceta; }
-    public Cliente getCliente() { return cliente; }
-    public String getDescripcion() { return descripcion; }
-    // getTotal() -- total con descuento ya está arriba
-    public ArrayList<Producto> getVenta() { return venta; }
-    public Recibo getRecibo() { return recibo; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public void setRequiereReceta(boolean requiereReceta) { this.requiereReceta = requiereReceta; }
+    public String getIdVenta() {
+        return idVenta;
+    }
+
+    public void setIdVenta(String idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public LocalDate getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public void setFechaVenta(LocalDate fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public boolean isRequiereReceta() {
+        return requiereReceta;
+    }
+
+    public void setRequiereReceta(boolean requiereReceta) {
+        this.requiereReceta = requiereReceta;
+    }
+
+    public Recibo getRecibo() {
+        return recibo;
+    }
+
+    public void setRecibo(Recibo recibo) {
+        this.recibo = recibo;
+    }
+
+    public ArrayList<Producto> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(ArrayList<Producto> venta) {
+        this.venta = venta;
+    }
 }

@@ -7,18 +7,16 @@ import com.example.sistema_farmacia.model.clasesdata.VentasDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class VentanaPrincipalController {
 
     @FXML private BorderPane rootPane;
-    @FXML private AnchorPane contenidoCentral;
 
     private final CategoriasDB categoriasDB = new CategoriasDB();
     private final ClientesDB clientesDB = new ClientesDB();
     private final ProductosDB productosDB = new ProductosDB();
-    private final VentasDB ventasDB = new VentasDB(); // NUEVO
+    private final VentasDB ventasDB = new VentasDB();
 
     @FXML
     public void initialize() {
@@ -30,7 +28,7 @@ public class VentanaPrincipalController {
             menuController.setVentanaPrincipalController(this);
             rootPane.setTop(menu);
 
-            // Ahora muestra ventas como pantalla principal
+            // Pantalla principal por defecto
             mostrarPantalla("/com/example/sistema_farmacia/view/Ventas/PantallaVentas.fxml");
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,10 +60,22 @@ public class VentanaPrincipalController {
                 controller.setVentasDB(ventasDB);
                 controller.setCategoriasDB(categoriasDB);
             }
-            contenidoCentral.getChildren().setAll(pantalla);
+            if (rutaFXML.endsWith("PantallaRecibos.fxml")) {
+                PantallaRecibosController controller = loader.getController();
+                controller.setVentasDB(ventasDB);
+                controller.setProductosDB(productosDB);
+                controller.setClientesDB(clientesDB);
+            }
+
+            if (rutaFXML.endsWith("PantallaReportes.fxml")) {
+                PantallaReportesController controller = loader.getController();
+                controller.setVentasDB(ventasDB);
+                controller.setProductosDB(productosDB);
+            }
+            // ------ CARGA LA PANTALLA EN EL CENTRO ------
+            rootPane.setCenter(pantalla);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
-

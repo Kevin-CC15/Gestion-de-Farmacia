@@ -1,49 +1,61 @@
 package com.example.sistema_farmacia.model.clasesreportes;
 
-
 import com.example.sistema_farmacia.model.clasesdata.ProductosDB;
 import com.example.sistema_farmacia.model.clasesplantillas.Producto;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import java.util.stream.Collectors;
 
 public class ReporteInventario {
-    private ProductosDB productoDB;
-    private LocalDate fechaGeneracion;
-    private ArrayList<Producto> productosexistentes;
+    private final ProductosDB productoDB;
+    private final LocalDate fechaGeneracion;
+    private final ArrayList<Producto> productosExistentes;
 
-    // Constructor ReporteInventario(producto : ProductosDB)
-    public ReporteInventario(ProductosDB producto) {
-        this.productoDB = producto;
-        this.fechaGeneracion = sacarHoy();
-        this.productosexistentes = convertirArraylist();
+    // Constructor
+    public ReporteInventario(ProductosDB productoDB) {
+        this.productoDB = productoDB;
+        this.fechaGeneracion = LocalDate.now();
+        this.productosExistentes = convertirArraylist();
     }
 
-    // Métodos Principales (Lógica de Reporte de Inventario)
-
-    public String crearReporteInventario() {
-        return "Reporte de Inventario generado al " + fechaGeneracion.toString();
+    // Todos los productos
+    public ArrayList<Producto> listarProductos() {
+        return new ArrayList<>(productosExistentes);
     }
 
-    public void listarProductos() {
-        // Muestra o retorna una lista de todos los productos
+    // Productos con 0 stock
+    public ArrayList<Producto> listarProductosAgotar() {
+        return productosExistentes.stream()
+                .filter(p -> p.getUnidadesExi() == 0)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void listarProductosAgotar() {
-        // Muestra productos con stock bajo o próximos a agotarse
+    // Productos que caducan en los próximos 30 días
+    public ArrayList<Producto> listarProductosCaducar() {
+        LocalDate hoy = LocalDate.now();
+        return productosExistentes.stream()
+                .filter(p -> p.getFechaCaducidad() != null &&
+                        !p.getFechaCaducidad().isBefore(hoy) &&
+                        !p.getFechaCaducidad().isAfter(hoy.plusDays(30)))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void listarProductosCaducar() {
-        // Muestra productos con fecha de caducidad próxima
+    // Productos sin categoría
+    public ArrayList<Producto> listarProductosSinCategoria() {
+        return productosExistentes.stream()
+                .filter(p -> p.getCategoria() == null || p.getCategoria().isEmpty())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    // Método auxiliar para convertir el Map del DB en ArrayList
     public ArrayList<Producto> convertirArraylist() {
-        // Convierte el Map de ProductosDB en un ArrayList para procesamiento
-        return new ArrayList<>();
+        return new ArrayList<>(productoDB.getListaProductos().values());
     }
 
-    public LocalDate sacarHoy() {
-        // Obtiene la fecha actual de la generación del reporte
-        return LocalDate.now();
+    // Texto resumen automático (puedes usarlo como .generarReporte())
+    public String crearReporteInventario() {
+        return "Reporte de Inventario generado al " + fechaGeneracion.toString()
+                + "\nProductos totales: " + productosExistentes.size();
     }
 }
