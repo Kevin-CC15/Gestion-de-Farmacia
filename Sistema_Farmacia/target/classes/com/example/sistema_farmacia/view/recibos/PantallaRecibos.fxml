@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.sistema_farmacia.controller.controladores.PantallaRecibosController">
+
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" style="-fx-padding: 18 0 14 220;">
+            <Label text="Fecha:"/>
+            <DatePicker fx:id="filtroFecha" promptText="Filtrar por fecha"/>
+            <Label text="Cliente:"/>
+            <TextField fx:id="filtroCliente" promptText="Filtrar por nombre"/>
+            <Button fx:id="btnFiltrar" text="Filtrar"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tablaRecibos" prefHeight="370" style="-fx-font-size:15px;">
+            <columns>
+                <TableColumn fx:id="colId"       text="ID Venta"       prefWidth="110"/>
+                <TableColumn fx:id="colFecha"    text="Fecha"          prefWidth="110"/>
+                <TableColumn fx:id="colTotal"    text="Total Venta"    prefWidth="120"/>
+                <TableColumn fx:id="colCliente"  text="Cliente"        prefWidth="170"/>
+                <TableColumn fx:id="colOpciones" text="Opciones"       prefWidth="165"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>
