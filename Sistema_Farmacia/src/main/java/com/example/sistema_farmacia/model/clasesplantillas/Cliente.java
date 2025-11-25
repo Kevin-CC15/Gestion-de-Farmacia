@@ -69,6 +69,16 @@ public class Cliente {
         return idCliente;
     }
 
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -88,6 +98,11 @@ public class Cliente {
     public double getPorcentajeDescuento() {
         return porcentajeDescuento;
     }
+
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
 
     public ArrayList<Venta> getHistorialCompras() {
         return historialCompras;

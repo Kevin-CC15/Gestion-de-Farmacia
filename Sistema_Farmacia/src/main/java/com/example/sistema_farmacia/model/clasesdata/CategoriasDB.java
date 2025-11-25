@@ -4,37 +4,57 @@ import com.example.sistema_farmacia.model.clasesplantillas.Categoria;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CategoriasDB {
-    // Atributo principal: Mapa que almacena categorías usando el nombre como clave
+    private static final String CATEGORIA_DEFAULT_NOMBRE = "sin categoria";
+    private static final String CATEGORIA_DEFAULT_DESC = "producto sin categoría";
+
     private Map<String, Categoria> listaCategorias;
 
-    // Constructor CategoriasDB()
     public CategoriasDB() {
         this.listaCategorias = new HashMap<>();
+        // Garantiza que la categoría especial existe siempre
+        if (!listaCategorias.containsKey(CATEGORIA_DEFAULT_NOMBRE)) {
+            listaCategorias.put(CATEGORIA_DEFAULT_NOMBRE,
+                    new Categoria(CATEGORIA_DEFAULT_NOMBRE, CATEGORIA_DEFAULT_DESC));
+        }
     }
 
-    // Métodos Principales
-
     public void agregarCategoria(Categoria categoria) {
-        // Agrega la categoría usando su nombre como clave
+        if (categoria.getCategoriaNombre().equalsIgnoreCase(CATEGORIA_DEFAULT_NOMBRE)) return;
         listaCategorias.put(categoria.getCategoriaNombre(), categoria);
     }
 
     public void eliminarCategoria(String nombre) {
-        // Elimina la categoría de la lista por su nombre
+        if (nombre.equalsIgnoreCase(CATEGORIA_DEFAULT_NOMBRE)) return;  // No se elimina la categoría especial
         listaCategorias.remove(nombre);
     }
 
     public void modificarCategoria(String nombreViejo, Categoria categoria) {
-        // Elimina la categoría anterior y agrega el objeto Categoria modificado
+        if (nombreViejo.equalsIgnoreCase(CATEGORIA_DEFAULT_NOMBRE)) return;
         listaCategorias.remove(nombreViejo);
-        listaCategorias.put(categoria.getCategoriaNombre(), categoria);
+        if (!categoria.getCategoriaNombre().equalsIgnoreCase(CATEGORIA_DEFAULT_NOMBRE)) {
+            listaCategorias.put(categoria.getCategoriaNombre(), categoria);
+        }
     }
 
+    /** Retorna todas las categorías (incluye la especial) */
     public Map<String, Categoria> getListaCategorias() {
-        // Retorna el Map<> completo
         return listaCategorias;
+    }
+
+    /** Para ComboBox/ListView de productos:
+     * Retorna solo las categorías que se pueden elegir (NO la categoría por defecto) */
+    public List<Categoria> getCategoriasParaProductos() {
+        return listaCategorias.values().stream()
+                .filter(cat -> !cat.getCategoriaNombre().equalsIgnoreCase(CATEGORIA_DEFAULT_NOMBRE))
+                .collect(Collectors.toList());
+    }
+
+    /** Devuelve la categoría especial, útil si hacen falta o no existe ninguna categoría real */
+    public Categoria getCategoriaDefault() {
+        return listaCategorias.get(CATEGORIA_DEFAULT_NOMBRE);
     }
 }

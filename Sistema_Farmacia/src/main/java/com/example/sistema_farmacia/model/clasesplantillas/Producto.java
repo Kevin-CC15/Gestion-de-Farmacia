@@ -35,6 +35,7 @@ public class Producto {
 
 
     //metodos get y set
+
     public String getNombre() {
         return nombre;
     }
@@ -94,6 +95,7 @@ public class Producto {
     public ArrayList<Categoria> getCategoria() {
         return categoria;
     }
+
 
     public void setCategoria(ArrayList<Categoria> categoria) {
         this.categoria = categoria;

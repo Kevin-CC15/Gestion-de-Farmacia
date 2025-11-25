@@ -32,6 +32,8 @@ public class ProductosDB {
         listaProductos.put(producto.getCodigo(), producto);
     }
 
+
+
     public Map<String, Producto> getListaProductos() {
         // Retorna el Map<> completo
         return listaProductos;
