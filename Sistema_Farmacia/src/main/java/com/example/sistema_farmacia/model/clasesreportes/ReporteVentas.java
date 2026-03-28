@@ -1,45 +1,43 @@
-package model.clasesreportes;
+package com.example.sistema_farmacia.model.clasesreportes;
 
-import model.clasesdata.VentasDB;
-import model.clasesplantillas.Venta;
+import com.example.sistema_farmacia.model.clasesdata.VentasDB;
+import com.example.sistema_farmacia.model.clasesplantillas.Venta;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 public class ReporteVentas {
-    private VentasDB ventasDB;
-    private ArrayList<Venta> ventas;
-    private double totalVenta;
-    private double gananciaTotal;
+    protected VentasDB ventasDB;
 
-    // Constructor ReporteVentas(ventasDB : VentasDB)
     public ReporteVentas(VentasDB ventasDB) {
-        // Inicializa el atributo ventasDB
         this.ventasDB = ventasDB;
-        this.ventas = new ArrayList<>();
-        this.totalVenta = 0.0;
-        this.gananciaTotal = 0.0;
     }
 
+    // Retorna todas las ventas (sin filtrar)
+    public ArrayList<Venta> sacarArrayListVentas() {
+        Map<String, Venta> mapaVentas = this.ventasDB.getListaVentas();
+        Collection<Venta> valores = mapaVentas.values();
+        return new ArrayList<>(valores);
+    }
 
     public String generarReporte() {
-        return "Reporte base de ventas.";
+        return "Reporte base de ventas (sobrescribir en hijos)";
     }
 
     public double sacarTotalVenta() {
-        // Encargado de sacar el total de la venta (no tiene contenido en la clase base)
-        return totalVenta;
+        return sacarArrayListVentas().stream()
+                .mapToDouble(Venta::getTotal)
+                .sum();
     }
 
     public double sacarTotalGanacia() {
-        // Encargado de sacar la ganancia total (no tiene contenido en la clase base)
-        return gananciaTotal;
+        return sacarArrayListVentas().stream()
+                .mapToDouble(Venta::getTotal) // Debes tener 'getGanancia' en Venta
+                .sum();
     }
 
     public void mostrarInfoVentas() {
-        // Mostrará la información de las ventas realizadas, como una lista
-    }
-
-    public ArrayList<Venta> sacarArrayListVentas() {
-        // Encargado de transformar el Map<> en un ArrayList<>
-        return ventas;
+        sacarArrayListVentas().forEach(System.out::println);
     }
 }

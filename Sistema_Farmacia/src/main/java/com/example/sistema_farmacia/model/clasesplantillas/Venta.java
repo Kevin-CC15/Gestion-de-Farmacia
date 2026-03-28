@@ -1,104 +1,122 @@
-package model.clasesplantillas;
+package com.example.sistema_farmacia.model.clasesplantillas;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 public class Venta {
     private String idVenta;
     private LocalDate fechaVenta;
-    private model.clasesplantillas.Cliente cliente;
+    private Cliente cliente;
     private String descripcion;
-    private double total;
+    private double total;              // Total con descuento
     private boolean requiereReceta;
-    private ArrayList<model.clasesplantillas.Producto> venta; // Lista de productos vendidos
+    private Recibo recibo;
+    private ArrayList<Producto> venta; // Lista de productos vendidos
 
-    // Constructor Ventas(cliente : Cliente)
-    public Venta(model.clasesplantillas.Cliente cliente) {
+    // Constructor
+    public Venta(Cliente cliente) {
         this.cliente = cliente;
         this.idVenta = generarIdVenta();
-        this.fechaVenta = generarFecha();
+        this.fechaVenta = LocalDate.now();
         this.venta = new ArrayList<>();
         this.total = 0.0;
-        this.requiereReceta = false; // Valor inicial
+        this.requiereReceta = false;
     }
 
-    // Métodos Principales (Lógica de Negocio)
-
     public String generarIdVenta() {
-        // Lógica para generar un ID único
         return "VEN-" + System.currentTimeMillis();
     }
 
-    public LocalDate generarFecha() {
-        // Genera la fecha actual
-        return LocalDate.now();
-    }
-
-    public void agregarProducto(model.clasesplantillas.Producto producto) {
+    // Agrega el producto a la lista (no recalcula automáticamente el total aquí)
+    public void agregarProducto(Producto producto) {
         this.venta.add(producto);
     }
 
-    public double calcularTotal() {
+    // Calcula y retorna el total SIN descuento
+    public double getTotalSinDescuento() {
         double subtotal = 0.0;
-        for (model.clasesplantillas.Producto p : venta) {
+        for (Producto p : venta) {
             subtotal += p.getPrecioVenta();
         }
-        // Aplicar el descuento llamando a aplicarDescuentoCliente()
-        double descuento = aplicarDescuentoCliente();
+        return subtotal;
+    }
+
+    // Calcula el descuento que se debe aplicar usando el porcentaje del cliente sobre el subtotal
+    public double getDescuentoAplicado() {
+        return getTotalSinDescuento() * (cliente.getPorcentajeDescuento() / 100.0);
+    }
+
+    // Calcula y retorna el total final (con descuento)
+    public double getTotal() {
+        // Calcula el total cada vez, para estar seguros
+        double subtotal = getTotalSinDescuento();
+        double descuento = getDescuentoAplicado();
         this.total = subtotal - descuento;
         return this.total;
     }
 
-    public double aplicarDescuentoCliente() {
-        return this.total * (cliente.getPorcentajeDescuento() / 100.0);
+    // Permite recalculo manual si lo deseas explícito
+    public void recalcularTotal() {
+        this.total = getTotal();
     }
-
-    public model.clasesplantillas.Recibo generarRecibo() {
-        return new model.clasesplantillas.Recibo(this);
-    }
-
-    // Métodos Get (Accesores)
 
     public String getIdVenta() {
         return idVenta;
+    }
+
+    public void setIdVenta(String idVenta) {
+        this.idVenta = idVenta;
     }
 
     public LocalDate getFechaVenta() {
         return fechaVenta;
     }
 
-    public model.clasesplantillas.Cliente getCliente() {
+    public void setFechaVenta(LocalDate fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
+
+    public Cliente getCliente() {
         return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public double getTotal() {
-        return total;
-    }
-
-    public boolean getRequiereRecesa() {
-        return requiereReceta;
-    }
-
-    public ArrayList<model.clasesplantillas.Producto> getVenta() {
-        return venta;
-    }
-
-    // Métodos Set (Mutadores)
-
-    public void setCliente(model.clasesplantillas.Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public boolean isRequiereReceta() {
+        return requiereReceta;
+    }
+
     public void setRequiereReceta(boolean requiereReceta) {
         this.requiereReceta = requiereReceta;
+    }
+
+    public Recibo getRecibo() {
+        return recibo;
+    }
+
+    public void setRecibo(Recibo recibo) {
+        this.recibo = recibo;
+    }
+
+    public ArrayList<Producto> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(ArrayList<Producto> venta) {
+        this.venta = venta;
     }
 }

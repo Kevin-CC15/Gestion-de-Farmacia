@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.sistema_farmacia.controller.controladores.PantallaReportesController">
+
+<top>
+        <VBox spacing="8" style="-fx-padding:18;">
+            <HBox spacing="9">
+                <Label text="Reporte Diario:"/>
+                <DatePicker fx:id="dateDiario"/>
+                <Button fx:id="btnDiario" text="Generar"/>
+                <Label text="Reporte Semanal:"/>
+                <DatePicker fx:id="dateSemanal"/>
+                <Button fx:id="btnSemanal" text="Generar"/>
+            </HBox>
+            <HBox spacing="16">
+                <Label text="Reporte Mensual:"/>
+                <ComboBox fx:id="mesesCombo" prefWidth="120"/>
+                <Spinner fx:id="anioMensual" prefWidth="90"/>
+                <Button fx:id="btnMensual" text="Generar"/>
+                <Label text="Reporte Anual:"/>
+                <Spinner fx:id="anioAnual" prefWidth="90"/>
+                <Button fx:id="btnAnual" text="Generar"/>
+            </HBox>
+            <HBox spacing="12">
+                <Label text="Reporte Inventario:"/>
+                <Button fx:id="btnInventario" text="Generar"/>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <TextArea fx:id="txtReporte" editable="false" wrapText="true" style="-fx-font-size: 15;"/>
+    </center>
+</BorderPane>
+
